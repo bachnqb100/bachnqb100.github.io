@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nguyễn Quý Bách — Unity Game Developer</title>
+<meta name="description" content="Unity game developer. 20+ shipped mobile titles on Google Play, 100M+ combined downloads.">
+<meta property="og:title" content="Nguyễn Quý Bách — Unity Game Developer">
+<meta property="og:description" content="20+ shipped mobile games, 100M+ combined downloads on Google Play.">
+<meta property="og:image" content="assets/img/com.cdgames.fidget3d/s0.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0b0d10; --surface: #13171c; --surface-2: #1a1f26; --line: #262d36;
+  --text: #e9edf1; --muted: #8b96a3; --accent: #c6f432; --accent-ink: #0b0d10; --hot: #ff6b4a;
+  --sans: "Space Grotesk", system-ui, sans-serif; --mono: "JetBrains Mono", ui-monospace, monospace;
+  --ease: cubic-bezier(.16, 1, .3, 1);
+}
+* { box-sizing: border-box; margin: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font: 16px/1.6 var(--sans); overflow-x: hidden; }
+body::before { /* grain + grid atmosphere */
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+  background:
+    radial-gradient(800px 500px at 85% -10%, #c6f43214, transparent 60%),
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 100% 64px;
+  mask-image: linear-gradient(#000 0, transparent 900px); opacity: .5;
+}
+a { color: inherit; }
+img { display: block; max-width: 100%; }
+.wrap { width: min(1180px, 100% - 32px); margin-inline: auto; }
+.mono { font-family: var(--mono); font-size: .78rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+
+/* nav */
+nav { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px); background: #0b0d10cc; border-bottom: 1px solid var(--line); }
+nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+nav b { font-family: var(--mono); font-size: .9rem; }
+nav b span { color: var(--accent); }
+nav ul { display: flex; gap: 22px; list-style: none; padding: 0; }
+nav a { text-decoration: none; font-size: .9rem; color: var(--muted); transition: color .2s; }
+nav a:hover, nav a:focus-visible { color: var(--accent); }
+@media (max-width: 640px) { nav ul { gap: 14px; } nav li:nth-child(n+4) { display: none; } }
+
+/* hero */
+.hero { padding: clamp(56px, 10vw, 120px) 0 56px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: end; }
+.hero h1 { font-size: clamp(2.6rem, 1rem + 6vw, 5.6rem); line-height: .95; letter-spacing: -.035em; font-weight: 700; }
+.hero h1 em { font-style: normal; color: var(--accent); }
+.hero p { color: var(--muted); max-width: 52ch; margin-top: 22px; font-size: 1.08rem; }
+.cta { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border: 1px solid var(--line); border-radius: 4px;
+  text-decoration: none; font-weight: 500; transition: transform .25s var(--ease), background .2s, border-color .2s; }
+.btn:hover { transform: translateY(-2px); border-color: var(--accent); }
+.btn:active { transform: translateY(0); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.stats { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); background: var(--surface); }
+.stats div { padding: 22px; border: 1px solid var(--line); margin: -1px 0 0 -1px; }
+.stats strong { display: block; font-size: clamp(1.8rem, 1rem + 2.4vw, 2.8rem); line-height: 1; letter-spacing: -.03em; }
+.stats div:first-child strong { color: var(--accent); }
+.hero > *, .feature > *, .job > * { min-width: 0; }
+.hero h1 { overflow-wrap: anywhere; }
+@media (max-width: 860px) { .hero { grid-template-columns: 1fr; } }
+
+/* sections */
+section { padding: 72px 0; }
+.head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 28px; border-bottom: 1px solid var(--line); padding-bottom: 14px; flex-wrap: wrap; }
+.head h2 { font-size: clamp(1.6rem, 1rem + 2vw, 2.4rem); letter-spacing: -.02em; }
+.head h2 small { font-family: var(--mono); font-size: .8rem; color: var(--accent); margin-right: 12px; vertical-align: middle; }
+
+/* featured (studio) — big editorial rows */
+.feature { display: grid; grid-template-columns: 340px 1fr; gap: 28px; padding: 28px 0; border-bottom: 1px dashed var(--line); }
+.feature:last-child { border-bottom: 0; }
+.feature .meta { display: flex; flex-direction: column; gap: 12px; }
+.title-row { display: flex; gap: 14px; align-items: center; }
+.title-row img { width: 64px; height: 64px; border-radius: 14px; }
+.title-row h3 { font-size: 1.25rem; line-height: 1.2; }
+.badge { display: inline-block; font-family: var(--mono); font-size: .72rem; padding: 3px 8px; border-radius: 3px; background: var(--surface-2); color: var(--muted); }
+.badge.dl { background: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.badges { display: flex; gap: 6px; flex-wrap: wrap; }
+.feature ul { padding-left: 18px; color: var(--muted); font-size: .95rem; }
+.feature li { margin-bottom: 4px; }
+.feature .store { font-size: .9rem; color: var(--accent); text-decoration: none; font-family: var(--mono); }
+.feature .store:hover { text-decoration: underline; }
+.shots { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+.shots button { flex: none; height: 300px; padding: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface); cursor: zoom-in; scroll-snap-align: start; transition: border-color .2s, transform .3s var(--ease); }
+.shots button:hover, .shots button:focus-visible { border-color: var(--accent); transform: translateY(-3px); outline: none; }
+.shots img { height: 100%; width: auto; }
+@media (max-width: 860px) { .feature { grid-template-columns: 1fr; } .shots button { height: 240px; } }
+
+/* freelance grid — bento: first two cards span wide */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.card { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column;
+  transition: transform .3s var(--ease), border-color .2s, box-shadow .3s; }
+.card:hover, .card:focus-within { transform: translateY(-4px); border-color: #3a4450; box-shadow: 0 18px 40px -20px #000; }
+.card .cover { aspect-ratio: 16 / 10; overflow: hidden; background: var(--surface-2); cursor: zoom-in; border: 0; padding: 0; width: 100%; }
+.card .cover img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .6s var(--ease); }
+.card:hover .cover img { transform: scale(1.04); }
+.card .body { padding: 16px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.card .title-row img { width: 44px; height: 44px; border-radius: 10px; }
+.card h3 { font-size: 1rem; }
+.card p { color: var(--muted); font-size: .88rem; flex: 1; }
+.card a.store { position: absolute; inset: auto 12px 12px auto; font-family: var(--mono); font-size: .75rem; color: var(--accent); text-decoration: none; }
+.card a.store::after { content: " ↗"; }
+@media (min-width: 900px) { .grid.bento > .card:nth-child(-n+2) { grid-column: span 2; } }
+
+/* tools */
+.tools { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 0; border: 1px solid var(--line); }
+.tool { padding: 22px; border: 1px solid var(--line); margin: -1px 0 0 -1px; transition: background .2s; }
+.tool:hover { background: var(--surface); }
+.tool h3 { font-size: 1.05rem; margin: 6px 0; }
+.tool p { color: var(--muted); font-size: .92rem; }
+
+/* experience */
+.timeline { display: grid; gap: 0; }
+.job { display: grid; grid-template-columns: 200px 1fr; gap: 24px; padding: 24px 0; border-top: 1px solid var(--line); }
+.job h3 { font-size: 1.15rem; }
+.job h3 span { color: var(--muted); font-weight: 400; }
+.job ul { padding-left: 18px; color: var(--muted); margin-top: 8px; }
+@media (max-width: 640px) { .job { grid-template-columns: 1fr; gap: 6px; } }
+
+/* skills */
+.skills { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px 40px; }
+.skills h3 { font-family: var(--mono); font-size: .8rem; text-transform: uppercase; color: var(--accent); letter-spacing: .05em; margin-bottom: 8px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips span { border: 1px solid var(--line); padding: 4px 10px; border-radius: 99px; font-size: .85rem; }
+
+/* contact */
+.contact { text-align: left; padding: 96px 0; }
+.contact h2 { font-size: clamp(2.2rem, 1rem + 5vw, 4.6rem); letter-spacing: -.035em; line-height: 1; }
+.contact h2 a { color: var(--accent); text-decoration: none; background: linear-gradient(var(--accent), var(--accent)) 0 100% / 0 3px no-repeat; transition: background-size .4s var(--ease); }
+.contact h2 a:hover { background-size: 100% 3px; }
+footer { border-top: 1px solid var(--line); padding: 24px 0; }
+
+/* lightbox */
+dialog { border: 0; padding: 0; background: transparent; max-width: 96vw; max-height: 92vh; }
+dialog::backdrop { background: #000d; backdrop-filter: blur(4px); }
+dialog img { max-height: 88vh; max-width: 92vw; border-radius: 10px; }
+dialog form { position: absolute; top: 8px; right: 8px; }
+dialog button { background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 4px; padding: 6px 12px; font: 600 .85rem var(--mono); cursor: pointer; }
+
+/* reveal */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+.reveal.in { opacity: 1; transform: none; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } .reveal { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+<nav aria-label="Main navigation">
+  <div class="wrap">
+    <b>bach<span>.</span>dev</b>
+    <ul>
+      <li><a href="#games">Games</a></li>
+      <li><a href="#tools">Tools</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <header class="wrap hero">
+    <div>
+      <p class="mono">Unity Game Developer · Hanoi, Vietnam</p>
+      <h1>Nguyễn Quý Bách.<br>I ship games<br>people <em>actually</em> play.</h1>
+      <p>3+ years building, launching and running casual, puzzle and simulation games on Google Play: gameplay architecture, 60 FPS on low-end devices, and the ads/IAP/LiveOps plumbing that keeps them alive.</p>
+      <div class="cta">
+        <a class="btn primary" href="#games">See the games ↓</a>
+        <a class="btn" href="mailto:nguyenquybachqm01@gmail.com">nguyenquybachqm01@gmail.com</a>
+      </div>
+    </div>
+    <div class="stats" aria-label="Key numbers">
+      <div><strong>100M+</strong><span class="mono">combined downloads</span></div>
+      <div><strong id="stat-titles">22</strong><span class="mono">titles on Google Play</span></div>
+      <div><strong>3+</strong><span class="mono">years shipping</span></div>
+      <div><strong>60 FPS</strong><span class="mono">on low-end Android</span></div>
+    </div>
+  </header>
+
+  <section id="games" class="wrap">
+    <div class="head reveal"><h2><small>01</small>Studio titles</h2><span class="mono">CDT Game Studio · 2024 — now</span></div>
+    <div id="studio"></div>
+  </section>
+
+  <section class="wrap">
+    <div class="head reveal"><h2><small>02</small>Freelance &amp; publisher work</h2><span class="mono">wolfkig · 2024 — 2026 · solo dev &amp; design</span></div>
+    <div class="grid bento" id="freelance"></div>
+  </section>
+
+  <section class="wrap">
+    <div class="head reveal"><h2><small>03</small>Personal releases</h2><span class="mono">Shinso · 2026</span></div>
+    <div class="grid" id="personal"></div>
+  </section>
+
+  <section id="tools" class="wrap">
+    <div class="head reveal"><h2><small>04</small>Unity tools &amp; systems</h2><span class="mono">shared across titles</span></div>
+    <div class="tools reveal">
+      <article class="tool"><span class="mono">Unity · C#</span><h3>b100 SDK</h3><p>Modular in-house Unity SDK split into core, ads (AdMob / AppLovin MAX), IAP and analytics packages.</p></article>
+      <article class="tool"><span class="mono">Unity · Addressables</span><h3>Remote content pipeline</h3><p>Addressables served from a Cloudflare R2 CDN with Firebase Remote Config for zero-update LiveOps and smaller install sizes.</p></article>
+      <article class="tool"><span class="mono">React · Node · Vision AI</span><h3>UI Asset Extractor</h3><p>Point it at a game screenshot: AI vision detects each UI element, redraws it cleanly and exports transparent PNGs ready for Unity.</p></article>
+    </div>
+  </section>
+
+  <section id="experience" class="wrap">
+    <div class="head reveal"><h2><small>05</small>Experience</h2><span class="mono">work &amp; education</span></div>
+    <div class="timeline">
+      <article class="job reveal"><span class="mono">3/2024 — present</span><div><h3>Unity Game Developer <span>· CDT Game Studio, Hanoi</span></h3><ul>
+        <li>Core gameplay, UI systems and game loops for casual / simulation / puzzle titles (10K to 100M+ downloads each).</li>
+        <li>Profiling and draw-call batching: build size down 25%, stable 60 FPS on low-end devices in heavy 3D simulation titles.</li>
+        <li>Hybrid monetization and analytics framework (IAA + IAP, Firebase Remote Config / Crashlytics), with ad pacing tuned against D1/D7 retention.</li></ul></div></article>
+      <article class="job reveal"><span class="mono">6/2024 — 7/2026</span><div><h3>Freelance Unity Developer <span>· Remote</span></h3><ul>
+        <li>8+ commercial games across trivia, simulation and puzzle under the wolfkig publisher brand (10M+ total downloads).</li>
+        <li>Reusable client frameworks for ads (AdMob, AppLovin MAX) and LiveOps (Remote Config, Addressables CDN).</li>
+        <li>Full lifecycle: concept, technical architecture, launch and live monetization tuning.</li></ul></div></article>
+      <article class="job reveal"><span class="mono">12/2022 — 8/2023</span><div><h3>Unity Developer Intern <span>· Rocket Game Studio, Hanoi</span></h3><ul>
+        <li>Core mechanics for 2 hyper-casual titles under senior mentorship.</li>
+        <li>Market research and rapid prototypes for weekly A/B test sprints.</li></ul></div></article>
+      <article class="job reveal"><span class="mono">2019 — 2024</span><div><h3>B.Sc. Applied Mathematics &amp; Informatics <span>· Hanoi University of Science and Technology</span></h3><ul>
+        <li>GPA 3.0 / 4.0. Linear algebra, algorithms, discrete mathematics, computational logic.</li></ul></div></article>
+    </div>
+  </section>
+
+  <section id="skills" class="wrap">
+    <div class="head reveal"><h2><small>06</small>Skills</h2><span class="mono">TOEIC L&amp;R 600</span></div>
+    <div class="skills reveal">
+      <div><h3>Engine &amp; code</h3><div class="chips"><span>C#</span><span>Unity 2D / 3D</span><span>SOLID</span><span>Game programming patterns</span><span>Clean architecture</span></div></div>
+      <div><h3>Performance</h3><div class="chips"><span>Draw calls &amp; culling</span><span>UI rebuilds</span><span>GC / memory</span><span>Profiler</span><span>60 FPS low-end</span></div></div>
+      <div><h3>SDKs &amp; LiveOps</h3><div class="chips"><span>AdMob</span><span>AppLovin MAX</span><span>Firebase</span><span>Adjust</span><span>AppsFlyer</span><span>Addressables CDN</span><span>Native Android plugins</span></div></div>
+      <div><h3>Market &amp; monetization</h3><div class="chips"><span>Concept validation</span><span>Competitor benchmarking</span><span>Ad flow &amp; native layouts</span><span>Economy &amp; ad pacing</span></div></div>
+      <div><h3>Tooling</h3><div class="chips"><span>Git (GitHub / GitLab)</span><span>Play Console</span><span>App Store Connect</span><span>AppstoreSpy</span><span>Sensor Tower</span></div></div>
+    </div>
+  </section>
+
+  <section id="contact" class="wrap contact">
+    <p class="mono">Open to Unity roles &amp; freelance</p>
+    <h2>Let’s build the next one.<br><a href="mailto:nguyenquybachqm01@gmail.com">Say hello →</a></h2>
+    <div class="cta">
+      <a class="btn" href="https://github.com/bachnqb100" rel="noopener">GitHub</a>
+      <a class="btn" href="https://gitlab.com/bachb100" rel="noopener">GitLab</a>
+      <a class="btn" href="https://play.google.com/store/apps/dev?id=5511897399583874998" rel="noopener">Google Play</a>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap mono">© <span id="y"></span> Nguyễn Quý Bách · Store data &amp; screenshots from Google Play</div></footer>
+
+<dialog id="lightbox" aria-label="Screenshot"><form method="dialog"><button>Close ✕</button></form><img alt=""></dialog>
+
+<script src="data.js"></script>
+<script>
+// What Bach actually did on each studio title (from CV); titles without notes fall back to the store summary.
+const NOTES = {
+  "com.cdgames.fidget3d": ["Multi-mechanic suite of 100+ fidget mini-games with tactile physics, 3D toys and haptics", "Decoupled mini-game loader: new games plug in without touching the core"],
+  "com.ezt.popit.v2": ["Pop-it and relaxing mini-game collection on the shared mini-game loader", "AdMob / AppLovin MAX monetization with Firebase analytics"],
+  "com.cdt.car.sim.racing": ["Solo developer + design (team of 3), soft launch", "Vehicle controller physics, camera system and interactive UI", "Modular upgrade progression and car customization"],
+  "com.cdt.jigscapse.sol": ["Jigsaw-placement × solitaire card logic", "Dynamic board generation, undo/redo via Command pattern", "Addressables pipeline streaming puzzle assets from CDN", "Draw-call and Canvas-rebuild work: zero frame drops on budget devices"],
+};
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const badges = a => `<div class="badges"><span class="badge dl">${esc(a.installs)} downloads</span><span class="badge">${esc(a.genre)}</span><span class="badge">${esc(a.year)}</span></div>`;
+const shot = (src, alt) => `<button type="button" data-full="${esc(src)}" aria-label="Enlarge screenshot of ${esc(alt)}"><img src="${esc(src)}" alt="" loading="lazy"></button>`;
+
+document.getElementById("studio").innerHTML = APPS.studio.map(a => `
+  <article class="feature reveal">
+    <div class="meta">
+      <div class="title-row"><img src="${esc(a.icon)}" alt="" width="64" height="64" loading="lazy"><h3>${esc(a.title)}</h3></div>
+      ${badges(a)}
+      <ul>${(NOTES[a.id] || [a.summary]).map(n => `<li>${esc(n)}</li>`).join("")}</ul>
+      <a class="store" href="${esc(a.url)}" rel="noopener">Google Play ↗</a>
+    </div>
+    <div class="shots">${a.shots.map(s => shot(s, a.title)).join("")}</div>
+  </article>`).join("");
+
+const card = a => `
+  <article class="card reveal">
+    <button type="button" class="cover" data-full="${esc(a.shots[0])}" aria-label="Enlarge screenshot of ${esc(a.title)}"><img src="${esc(a.shots[0])}" alt="" loading="lazy"></button>
+    <div class="body">
+      <div class="title-row"><img src="${esc(a.icon)}" alt="" width="44" height="44" loading="lazy"><h3>${esc(a.title)}</h3></div>
+      ${badges(a)}
+      <p>${esc(a.summary)}</p>
+      <a class="store" href="${esc(a.url)}" rel="noopener" aria-label="${esc(a.title)} on Google Play">Play</a>
+    </div>
+  </article>`;
+document.getElementById("freelance").innerHTML = APPS.freelance.map(card).join("");
+document.getElementById("personal").innerHTML = APPS.personal.map(card).join("");
+document.getElementById("stat-titles").textContent = APPS.studio.length + APPS.freelance.length + APPS.personal.length;
+document.getElementById("y").textContent = new Date().getFullYear();
+
+const box = document.getElementById("lightbox");
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-full]");
+  if (b) { box.querySelector("img").src = b.dataset.full; box.showModal(); }
+  else if (e.target === box) box.close();
+});
+
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px" });
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+</script>
+</body>
+</html>
